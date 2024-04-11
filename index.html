@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn FE</title>
+  <style>
+    /* Add your CSS styles here */
+  </style>
+</head>
+<body>
+  <h1>Learn FE</h1>
+  
+  <!-- Concept Input Form -->
+  <div id="concept-input">
+    <label for="concept">Enter a concept to learn:</label>
+    <input type="text" id="concept">
+    <button onclick="fetchContent()">Fetch Content</button>
+  </div>
+  
+  <!-- Gemini Interaction: Display fetched content -->
+  <div id="gemini-content">
+    <h2>Fetched Content:</h2>
+    <div id="content-placeholder">Content will appear here after fetching.</div>
+  </div>
+  
+  <!-- Recording Section -->
+  <div id="recording-section">
+    <h2>Record Your Explanation:</h2>
+    <div id="recording-controls">
+      <button id="start-recording" onclick="startRecording()">Start Recording</button>
+      <button id="stop-recording" onclick="stopRecording()" disabled>Stop Recording</button>
+      <button id="upload-recording" onclick="uploadRecording()" disabled>Upload Recording</button>
+    </div>
+    <video id="recorded-video" controls></video>
+  </div>
+  
+  <!-- Upload Recording -->
+  <div id="upload-section">
+    <h2>Upload Your Recording:</h2>
+    <input type="file" id="recorded-file">
+    <button onclick="submitRecording()">Submit Recording</button>
+  </div>
+  
+  <!-- Recordings Feed: Display recorded explanations -->
+  <div id="recordings-feed">
+    <h2>Recordings Feed:</h2>
+    <div id="recordings-list">Recordings will appear here.</div>
+  </div>
+
+  <script>
+    let mediaRecorder;
+    let recordedChunks = [];
+
+    function startRecording() {
+      navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+        .then(function(stream) {
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.ondataavailable = function(event) {
+            recordedChunks.push(event.data);
+          };
+          mediaRecorder.start();
+          document.getElementById("start-recording").disabled = true;
+          document.getElementById("stop-recording").disabled = false;
+          document.getElementById("play-recording").disabled = true;
+          document.getElementById("download-recording").disabled = true;
+        })
+        .catch(function(error) {
+          console.error("Error accessing media devices:", error);
+        });
+    }
+
+    function stopRecording() {
+      mediaRecorder.stop();
+      document.getElementById("start-recording").disabled = false;
+      document.getElementById("stop-recording").disabled = true;
+      document.getElementById("play-recording").disabled = false;
+      document.getElementById("download-recording").disabled = false;
+    }
+
+    function playRecording() {
+      const blob = new Blob(recordedChunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      const video = document.getElementById('recorded-video');
+      video.src = url;
+      video.play();
+    }
+
+    function downloadRecording() {
+      const blob = new Blob(recordedChunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'recording.webm';
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
+

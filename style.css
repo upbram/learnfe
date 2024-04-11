@@ -1,0 +1,89 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  margin-bottom: 10px;
+}
+
+/* Form styles */
+#concept-input {
+  margin-bottom: 20px;
+}
+
+#concept-input label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#concept-input input[type="text"] {
+  width: 300px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+#concept-input button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#concept-input button:hover {
+  background-color: #0056b3;
+}
+
+/* Gemini Content styles */
+#gemini-content {
+  margin-bottom: 20px;
+}
+
+#content-placeholder {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Recording Section styles */
+#recording-section {
+  margin-bottom: 20px;
+}
+
+#recording-controls {
+  margin-bottom: 10px;
+}
+
+#recording-controls button {
+  margin-right: 10px;
+}
+
+#recorded-video {
+  width: 100%;
+}
+
+/* Upload Section styles */
+#upload-section {
+  margin-bottom: 20px;
+}
+
+#recorded-file {
+  margin-bottom: 10px;
+}
+
+/* Recordings Feed styles */
+#recordings-feed {
+  margin-bottom: 20px;
+}
+
+#recordings-list {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#recordings-list .recording-item {
+  margin-bottom: 10px;
+}
+
